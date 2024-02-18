@@ -9,7 +9,7 @@ document.body.appendChild( renderer.domElement );
 
 
 //lados
-const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: false });
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
 const geometryBarRight = new THREE.BoxGeometry(4,4,4);
 // cubo
@@ -17,22 +17,29 @@ const cubo = new THREE.Mesh(geometryBarRight, material);
 cubo.position.x = 5.7;
 cubo.position.y = -0.5 ;
 scene.add(cubo);
-
+light(scene);
 
 camera.position.z = 6;
 camera.position.y = 8;
 
 camera.lookAt(cubo.position)
+function light(scene) {
+    const spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.position.set( 1, 1, 1 );
+    scene.add( spotLight );
 
-/* function animate() {
+    const spotLightHelper = new THREE.SpotLightHelper( spotLight );
+    scene.add( spotLightHelper );
+}
+function animate() {
 	requestAnimationFrame( animate );
 
-	cuboright.rotation.x += 0.01;
-	cuboright.rotation.y += 0.01;
+	cubo.rotation.x += 0.01;
+	cubo.rotation.y += 0.01;
 
 	renderer.render( scene, camera );
 }
 
-animate(); */
+animate();
 
-renderer.render( scene, camera );
+renderer.render(scene, camera);
