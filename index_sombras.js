@@ -10,28 +10,18 @@ function init() {
     renderer.shadowMap.enabled = true;
     document.body.appendChild( renderer.domElement );
     
-    //house(scene);
+    house(scene);
     bar(scene);
-    //tree(scene);
-    //floor(scene);
-    
-    const geometryPlane = new THREE.PlaneGeometry( 16,16);
-    const materialPlane = new THREE.MeshLambertMaterial( { color: 0x004488, wireframe: false } );
-    var plane = new THREE.Mesh(geometryPlane, materialPlane);
-    plane.rotation.x = -0.5 * Math.PI;
-    plane.position.y = -1;
-    plane.castShadow = true;
-    plane.receiveShadow = true;
-    scene.add(plane);
-
+    tree(scene);
+    floor(scene);
 
     camera.position.z = 6;
     camera.position.y = 8;
     camera.position.x = -16;
     light(scene);
     camera.lookAt(scene.position);
-    esfera(scene,renderer,camera,plane);
-    //renderer.render(scene, camera);
+
+    renderer.render(scene, camera);
 }
 
 function house(scene) {
@@ -93,7 +83,7 @@ function bar(scene) {
 }
 function floor(scene) {
     // <!--GEOMETRIA PLANO-->
-    const geometryPlane = new THREE.PlaneGeometry( 18,28);
+    const geometryPlane = new THREE.PlaneGeometry( 12,9);
     const materialPlane = new THREE.MeshLambertMaterial( { color: 0x004488, wireframe: false } );
     var plane = new THREE.Mesh(geometryPlane, materialPlane);
     plane.rotation.x = -0.5 * Math.PI;
@@ -101,17 +91,6 @@ function floor(scene) {
     plane.castShadow = true;
     plane.receiveShadow = true;
     scene.add(plane);
-}
-function esfera(scene,renderer,camera,plane) {
-    // <!--GEOMETRIA PLANO-->
-    const geometrySphere = new THREE.SphereGeometry( 2,35,35);
-    const materialPlane = new THREE.MeshLambertMaterial( { color: 0x774488, wireframe: false } );
-    var sphere = new THREE.Mesh(geometrySphere, materialPlane);
-    sphere.position.y = 1;
-    sphere.castShadow = true;
-    sphere.receiveShadow = true;
-    scene.add(sphere);
-    renderScene(sphere, scene,renderer,camera,plane);
 }
 function tree(scene) {
     // ARBOL
@@ -139,20 +118,7 @@ function light(scene) {
     scene.add( spotLight );
 
     const spotLightHelper = new THREE.SpotLightHelper( spotLight );
-    //scene.add( spotLightHelper );
-}
-var step = 0;
-
-function renderScene(sphere, scene, renderer, camera,plane) {
-    step += 0.02;
-    
-    sphere.position.x = 11 * Math.sin(step);
-    sphere.position.y = Math.abs(5 * Math.sin(step));
-    plane.rotation.z += 0.02;
-    requestAnimationFrame(() => renderScene(sphere,scene,renderer,camera,plane));
-    renderer.render(scene, camera);
-  
-    
+    scene.add( spotLightHelper );
 }
 /* function animate() {
 	requestAnimationFrame( animate );
