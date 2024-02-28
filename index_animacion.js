@@ -143,12 +143,13 @@ function light(scene) {
 }
 var step = 0;
 
+
 function renderScene(sphere, scene, renderer, camera,plane) {
     step += 0.02;
     
     sphere.position.x = 11 * Math.sin(step);
     sphere.position.y = Math.abs(5 * Math.sin(step));
-    plane.rotation.z += 0.02;
+    plane.rotation.z += 1.42;
     requestAnimationFrame(() => renderScene(sphere,scene,renderer,camera,plane));
     renderer.render(scene, camera);
   
